@@ -55,6 +55,14 @@ misrepresented as being the original software.
 extern "C" {
 #endif
 
+#ifdef  _WIN32 
+#define PROJECTAPI __declspec(dllexport)
+#else
+#define PROJECTAPI
+#endif
+
+
+
 /******************************************************************************************************/
 /**************************************** UTF-8 on Windows ********************************************/
 /******************************************************************************************************/
@@ -120,13 +128,13 @@ for console mode:
 
 void tinyfd_beep(void);
 
-int tinyfd_notifyPopup(
+PROJECTAPI int tinyfd_notifyPopup(
 	char const * aTitle, /* NULL or "" */
 	char const * aMessage, /* NULL or "" may contain \n \t */
 	char const * aIconType); /* "info" "warning" "error" */
 		/* return has only meaning for tinyfd_query */
 
-int tinyfd_messageBox(
+PROJECTAPI int tinyfd_messageBox(
 	char const * aTitle , /* NULL or "" */
 	char const * aMessage , /* NULL or "" may contain \n \t */
 	char const * aDialogType , /* "ok" "okcancel" "yesno" "yesnocancel" */
@@ -134,13 +142,13 @@ int tinyfd_messageBox(
 	int aDefaultButton ) ;
 		/* 0 for cancel/no , 1 for ok/yes , 2 for no in yesnocancel */
 
-char * tinyfd_inputBox(
+PROJECTAPI char * tinyfd_inputBox(
 	char const * aTitle , /* NULL or "" */
 	char const * aMessage , /* NULL or "" (\n and \t have no effect) */
 	char const * aDefaultInput ) ;  /* NULL passwordBox, "" inputbox */
 		/* returns NULL on cancel */
 
-char * tinyfd_saveFileDialog(
+PROJECTAPI char * tinyfd_saveFileDialog(
 	char const * aTitle , /* NULL or "" */
 	char const * aDefaultPathAndFile , /* NULL or "" */
 	int aNumOfFilterPatterns , /* 0  (1 in the following example) */
@@ -148,7 +156,7 @@ char * tinyfd_saveFileDialog(
 	char const * aSingleFilterDescription ) ; /* NULL or "text files" */
 		/* returns NULL on cancel */
 
-char * tinyfd_openFileDialog(
+PROJECTAPI char * tinyfd_openFileDialog(
 	char const * aTitle, /* NULL or "" */
 	char const * aDefaultPathAndFile, /* NULL or "" */
 	int aNumOfFilterPatterns , /* 0 (2 in the following example) */
@@ -158,12 +166,12 @@ char * tinyfd_openFileDialog(
 		/* in case of multiple files, the separator is | */
 		/* returns NULL on cancel */
 
-char * tinyfd_selectFolderDialog(
+PROJECTAPI char * tinyfd_selectFolderDialog(
 	char const * aTitle, /* NULL or "" */
 	char const * aDefaultPath); /* NULL or "" */
 		/* returns NULL on cancel */
 
-char * tinyfd_colorChooser(
+PROJECTAPI char * tinyfd_colorChooser(
 	char const * aTitle, /* NULL or "" */
 	char const * aDefaultHexRGB, /* NULL or "#FF0000" */
 	unsigned char const aDefaultRGB[3] , /* unsigned char lDefaultRGB[3] = { 0 , 128 , 255 }; */
@@ -179,13 +187,13 @@ char * tinyfd_colorChooser(
 #ifdef _WIN32
 
 /* windows only - utf-16 version */
-int tinyfd_notifyPopupW(
+PROJECTAPI int tinyfd_notifyPopupW(
 	wchar_t const * aTitle, /* NULL or L"" */
 	wchar_t const * aMessage, /* NULL or L"" may contain \n \t */
 	wchar_t const * aIconType); /* L"info" L"warning" L"error" */
 
 /* windows only - utf-16 version */
-int tinyfd_messageBoxW(
+PROJECTAPI int tinyfd_messageBoxW(
 	wchar_t const * aTitle, /* NULL or L"" */
 	wchar_t const * aMessage, /* NULL or L"" may contain \n \t */
 	wchar_t const * aDialogType, /* L"ok" L"okcancel" L"yesno" */
@@ -194,13 +202,13 @@ int tinyfd_messageBoxW(
 		/* returns 0 for cancel/no , 1 for ok/yes */
 
 /* windows only - utf-16 version */
-wchar_t * tinyfd_inputBoxW(
+PROJECTAPI wchar_t * tinyfd_inputBoxW(
 	wchar_t const * aTitle, /* NULL or L"" */
 	wchar_t const * aMessage, /* NULL or L"" (\n nor \t not respected) */
 	wchar_t const * aDefaultInput); /* NULL passwordBox, L"" inputbox */
 
 /* windows only - utf-16 version */
-wchar_t * tinyfd_saveFileDialogW(
+PROJECTAPI wchar_t * tinyfd_saveFileDialogW(
 	wchar_t const * aTitle, /* NULL or L"" */
 	wchar_t const * aDefaultPathAndFile, /* NULL or L"" */
 	int aNumOfFilterPatterns, /* 0 (1 in the following example) */
@@ -209,7 +217,7 @@ wchar_t * tinyfd_saveFileDialogW(
 		/* returns NULL on cancel */
 
 /* windows only - utf-16 version */
-wchar_t * tinyfd_openFileDialogW(
+PROJECTAPI wchar_t * tinyfd_openFileDialogW(
 	wchar_t const * aTitle, /* NULL or L"" */
 	wchar_t const * aDefaultPathAndFile, /* NULL or L"" */
 	int aNumOfFilterPatterns , /* 0 (2 in the following example) */
@@ -220,13 +228,13 @@ wchar_t * tinyfd_openFileDialogW(
 		/* returns NULL on cancel */
 
 /* windows only - utf-16 version */
-wchar_t * tinyfd_selectFolderDialogW(
+PROJECTAPI wchar_t * tinyfd_selectFolderDialogW(
 	wchar_t const * aTitle, /* NULL or L"" */
 	wchar_t const * aDefaultPath); /* NULL or L"" */
 		/* returns NULL on cancel */
 
 /* windows only - utf-16 version */
-wchar_t * tinyfd_colorChooserW(
+PROJECTAPI wchar_t * tinyfd_colorChooserW(
 	wchar_t const * aTitle, /* NULL or L"" */
 	wchar_t const * aDefaultHexRGB, /* NULL or L"#FF0000" */
 	unsigned char const aDefaultRGB[3], /* unsigned char lDefaultRGB[3] = { 0 , 128 , 255 }; */
