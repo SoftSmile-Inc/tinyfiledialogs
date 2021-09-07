@@ -20,9 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tinyfiledialogs.cpp" />
+    <ClCompile Include="windowsUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyfiledialogs.h" />
+    <ClInclude Include="windowsUtils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -128,7 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;TINYFILEDIALOGS_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>

@@ -18,9 +18,15 @@
     <ClCompile Include="tinyfiledialogs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="windowsUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tinyfiledialogs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="windowsUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

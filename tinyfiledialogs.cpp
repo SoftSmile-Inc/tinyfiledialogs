@@ -80,6 +80,7 @@ Thanks for contributions, bug corrections & thorough testing to:
  #include <direct.h>
  #define TINYFD_NOCCSUNICODE
  #define SLASH "\\"
+ #include "windowsUtils.h"
 #else
  #include <limits.h>
  #include <unistd.h>
@@ -91,6 +92,7 @@ Thanks for contributions, bug corrections & thorough testing to:
 #endif /* _WIN32 */
 
 #include "tinyfiledialogs.h"
+
 
 #define MAX_PATH_OR_CMD 1024 /* _MAX_PATH or MAX_PATH */
 
@@ -1769,48 +1771,7 @@ wchar_t * tinyfd_selectFolderDialogW(
         wchar_t const * aTitle, /* NULL or "" */
         wchar_t const * aDefaultPath) /* NULL or "" */
 {
-        static wchar_t lBuff[MAX_PATH_OR_CMD];
-		wchar_t * lRetval;
-
-        BROWSEINFOW bInfo;
-        LPITEMIDLIST lpItem;
-        HRESULT lHResult;
-
-        if (aTitle&&!wcscmp(aTitle, L"tinyfd_query")){ strcpy(tinyfd_response, "windows_wchar"); return (wchar_t *)1; }
-
-		if (quoteDetectedW(aTitle)) return tinyfd_selectFolderDialogW(L"INVALID TITLE WITH QUOTES", aDefaultPath);
-		if (quoteDetectedW(aDefaultPath)) return tinyfd_selectFolderDialogW(aTitle, L"INVALID DEFAULT_PATH WITH QUOTES");
-
-        lHResult = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
-
-        bInfo.hwndOwner = GetForegroundWindow();
-        bInfo.pidlRoot = NULL;
-        bInfo.pszDisplayName = lBuff;
-        bInfo.lpszTitle = aTitle && wcslen(aTitle) ? aTitle : NULL;
-        if (lHResult == S_OK || lHResult == S_FALSE)
-        {
-                bInfo.ulFlags = BIF_USENEWUI;
-        }
-        bInfo.lpfn = BrowseCallbackProcW;
-        bInfo.lParam = (LPARAM)aDefaultPath;
-        bInfo.iImage = -1;
-
-        lpItem = SHBrowseForFolderW(&bInfo);
-        if (!lpItem)
-		{
-			lRetval = NULL;
-		}
-		else
-        {
-                SHGetPathFromIDListW(lpItem, lBuff);
-				lRetval = lBuff ;
-        }
-
-        if (lHResult == S_OK || lHResult == S_FALSE)
-        {
-                CoUninitialize();
-        }
-		return lRetval;
+		return nativeSelectFolderDialog(aTitle, aDefaultPath);
 }
 
 
